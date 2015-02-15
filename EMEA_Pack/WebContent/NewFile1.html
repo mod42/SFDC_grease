@@ -8,7 +8,7 @@
 <body>
 
 	<table border="1">
-		<tr class="dataRow even first" id="aqtr_00Ua000000YHt4DEAT"
+		<tr class="dataRow" id="aqtr_00Ua000000YHt4DEAT"
 			onblur="if (window.hiOff){hiOff(this);}"
 			onfocus="if (window.hiOn){hiOn(this);}"
 			onmouseout="if (window.hiOff){hiOff(this);}"
@@ -16,11 +16,10 @@
 			<th scope="row" class=" dataCell  ">h1</th>
 			<td class=" dataCell  ">d1</td>
 			<td class=" dataCell  ">d2</td>
-			<td class=" dataCell  ">d3
-			<input value="Delete" class="btn" title="Delete" name="del"
-			onclick="navigateToUrl('/setup/own/deleteredirect.jsp?delID=00Ua000000YHt4D&amp;retURL=%2Fhome%2Fhome.jsp&amp;_CONFIRMATIONTOKEN=TAj05tdkQ8Qdj2tL04GO7gh9CymKAvjEh064STm7dS6ti6FHZyEcdFcas.DjBt6Ee7GEEtsOps6WYcKI_yvb0d0VFCCb7zo5g_eTe_PoKpVVYum6OBxM0o80Brev_lvg24NhU5LtWImIcL6bpDNa4g17mKc%3D','DETAIL','del');"
-			type="button">qqqqqq
-		</input></td>
+			<td class=" dataCell  ">d3 <input value="Delete" class="btn"
+				title="Delete" name="del"
+				onclick="navigateToUrl('/setup/own/deleteredirect.jsp?delID=00Ua000000YHt4D&amp;retURL=%2Fhome%2Fhome.jsp&amp;_CONFIRMATIONTOKEN=TAj05tdkQ8Qdj2tL04GO7gh9CymKAvjEh064STm7dS6ti6FHZyEcdFcas.DjBt6Ee7GEEtsOps6WYcKI_yvb0d0VFCCb7zo5g_eTe_PoKpVVYum6OBxM0o80Brev_lvg24NhU5LtWImIcL6bpDNa4g17mKc%3D','DETAIL','del');"
+				type="button">qqqqqq </input></td>
 		</tr>
 		<tr class="dataRow even first" id="aqtr_00Ua000000YHt4QQQ"
 			onblur="if (window.hiOff){hiOff(this);}"
@@ -33,72 +32,92 @@
 			<td class=" dataCell  ">d3</td>
 		</tr>
 		<tr>
-			<th scope="row" class=" dataCell  ">h1</th>
+			<th scope="row" id="delall" class=" dataCell  ">h1</th>
 			<td class=" dataCell  ">d1</td>
 			<td class=" dataCell  ">d2</td>
 			<td class=" dataCell  ">d3</td>
-			<div id="stage" style="background-color: blue;">STAGE</div>
 		</tr>
 
 	</table>
 </body>
 
 <script type="text/javascript">
-var input=document.createElement("input");
-input.type="button";
-input.value="GreaseMonkey Button";
-input.onclick = showAlert;
-//document.body.appendChild(input); 
-document.body.insertBefore(input, document.body.firstChild);
 
-var input2=document.createElement("input");
-input2.type="button";
-input2.value="X";
-input2.onclick = showAlert2;
 
-function showAlert()
-{
-    //alert("Hello World" +  $("#aqtr_00Ua000000YHt4DEAT").attr('class'));
-    
+	var input = document.createElement("input");
+	input.type = "button";
+	input.value = "GreaseMonkey Button";
+	input.onclick = showAlert;
+	//document.body.appendChild(input);
+	var checkBtnAll = $(document.createElement("input")).attr({
+	id : 'checkAll',
+	name : "deleteAll",
+	type : 'checkbox',
+	checked : false,
 
-    
-        //$("#aqtr_00Ua000000YHt4DEAT").after($("<td>"));
-        $("[id^='aqtr_']*").each(function(i) {
-        	var act_id=this.id.substr(this.id.indexOf("_") + 1);
-        	//var del_url = "https://ca.my.salesforce.com/setup/own/deleteredirect.jsp?delID=";
-        	//del_url = del_url.concat(act_id);
-        	//del_url = del_url.concat("&amp;retURL=%2F6AB%3Fsrc%3D10");
-            var deleteBtn=document.createElement("input");
-        	deleteBtn.type="button";
-        	deleteBtn.value="X"+i;
-        	deleteBtn.textContent="X_"+ i;
-        	deleteBtn.onclick = function(){showAlert2(act_id)};
-        	$(this).find("th")
-        	.before($('<td/>')
-        	.append(deleteBtn));
-        });
-        
-}
-function showAlert2(i)
-{
-    //alert("Hello World "+i);
-	$.get( "", function(data) {
-		  var navigateTo = $("input[name='del']", $(data))[0].onclick.toString().split("'")[1];
-		  //var gesplit = navigateTo.split(",");
-		  
-		  alert("success " + navigateTo + "\n");
-		  $("tr[id='aqtr_"+i+"']").attr("style", "display: none;")
-		})
-		  .done(function(data) {
-		    alert( "second success " );
-		  })
-		  .fail(function(data) {
-		    alert( "error ");
-		  })
-		  .always(function() {
-		    alert( "finished" );
-		  });
-    
-}
+	});
+	document.body.insertBefore(input, document.body.firstChild);
+	//$("[id='delall']*").append(checkBtnAll);
+
+	$(".dataRow").prepend($('<td>').append(checkBtnAll));
+	
+	//queueButtonTR
+	
+	var input2 = document.createElement("input");
+	input2.type = "button";
+	input2.value = "X";
+	input2.onclick = showAlert2;
+
+	function showAlert() {
+
+		$("[id^='aqtr_']*").each(function(i) {
+			var act_id = this.id.substr(this.id.indexOf("_") + 1);
+			//var del_url = "https://ca.my.salesforce.com/setup/own/deleteredirect.jsp?delID=";
+			//del_url = del_url.concat(act_id);
+			//del_url = del_url.concat("&amp;retURL=%2F6AB%3Fsrc%3D10");
+			var checkBtn = $(document.createElement("input")).attr({
+				id : 'entry_' + act_id,
+				name : 'deleteList',
+				class: 'deleteList',
+				value : act_id,
+				type : 'checkbox'
+			});
+
+			var deleteBtn = document.createElement("input");
+			deleteBtn.type = "button";
+			deleteBtn.value = "X" + i;
+			deleteBtn.textContent = "X_" + i;
+			deleteBtn.onclick = function() {
+				showAlert2(act_id)
+			};
+			//$(this).find("th").before($('<td/>').append(deleteBtn);
+			$(this).find("th").before($('<td/>').append(deleteBtn).append(checkBtn));
+			//$(this).find("th").before($('<td/>').append(checkBtn));
+		});
+		$("[id='checkAll']").click(function () {    
+	    	$(':checkbox.deleteList').prop('checked', this.checked);
+	    	});
+	 };
+	function showAlert2(i) {
+		//alert("Hello World "+i);
+		$.get(
+				"",
+				function(data) {
+					var navigateTo = $("input[name='del']", $(data))[0].onclick
+							.toString().split("'")[1];
+					//var gesplit = navigateTo.split(",");
+
+					alert("success " + navigateTo + "\n");
+					$("tr[id='aqtr_" + i + "']")
+							.attr("style", "display: none;")
+				}).done(function(data) {
+			alert("second success ");
+		}).fail(function(data) {
+			alert("error ");
+		}).always(function() {
+			alert("finished");
+		});
+
+	}
 </script>
 </html>
