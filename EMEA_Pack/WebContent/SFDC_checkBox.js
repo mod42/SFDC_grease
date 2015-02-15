@@ -3,7 +3,7 @@
 // @namespace    http://your.homepage/
 // @version      0.4
 // @description  This script adds a delete Button to the Salesforces "unresolved items" page. With the "Del" Button the entry is directly deleted.
-// @author       You
+// @author       Steffen Miller
 // @match        https://*.salesforce.com/*
 // @grant        none
 // @require      http://code.jquery.com/jquery-latest.min.js
