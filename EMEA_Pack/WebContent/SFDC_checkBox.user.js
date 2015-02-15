@@ -70,61 +70,13 @@ function clickDelete(i){
     $.get( "/"+i, function(data) {
         var navigateTo = $("input[name='del']", $(data))[0].onclick.toString().split("'")[1];
         //alert( "success" + navigateTo);
-        $("tr[id='aqtr_"+i+"']").attr("style", "display: none;")
+        $("tr[id='aqtr_"+i+"']").attr("style", "display: none;");
         deleteEntry(navigateTo);
     })
     .fail(function(data) {
         alert( "error ");
     });
     
-    
-}
-
-function deleteEntry(entryUrl){
-    $.get( entryUrl, function(data) {
-        //alert( "success" );
-        //document.location.reload(true); 
-    })
-    .fail(function(data) {
-        alert( "error ");
-    });
-}
-$(document).ready(function() {
-    setButtons();
-});
-
-function setButtons(){
-    $("[id^='aqtr_']*").each(function(i){
-        var act_id=this.id.substr(this.id.indexOf("_") + 1);
-        //alert("id " + act_id);
-        var deleteBtn=document.createElement("input");
-        deleteBtn.type="button";
-        deleteBtn.value="Del";
-        deleteBtn.textContent="Del";
-        deleteBtn.onclick = function(){clickDelete(act_id);};
-        var checkBtn = $(document.createElement("input")).attr({
-			 id:	'entry_' + act_id
- 			,name:	deleteList
- 			,value:	act_id
- 			,type:	'checkbox'
- 			,checked:false
- 		})
-        $(this).find("th").before($('<td/>').append(deleteBtn).append(checkBtn));
-        
-    });
-}
-function clickDelete(i){
-    $.get( "/"+i, function(data) {
-        var navigateTo = $("input[name='del']", $(data))[0].onclick.toString().split("'")[1];
-        //alert( "success" + navigateTo);
-          $("tr[id='aqtr_"+i+"']").attr("style", "display: none;")
-        deleteEntry(navigateTo);
-       
-    })
-    .fail(function(data) {
-        alert( "error ");
-    });
- 
     
 }
 
