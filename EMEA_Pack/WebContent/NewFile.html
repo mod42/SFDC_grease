@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<title>Insert title here</title>
+</head>
+
+<div  ng-app="" ng-controller="customersController"> 
+
+ 
+    {{ names }}
+
+</div>
+
+<script>
+function customersController($scope,$http) {
+ // $http.get("http://www.w3schools.com//website/Customers_JSON.php")
+  //.success(function(response) {$scope.names = response;});
+  //$http.defaults.headers.common.Authorization = 'Basic YWRtaW46N2xheWVy'
+  //requestCert: true
+  //rejectUnauthorized: false,
+  $http.get("https://explore.apim.ca:8443/restman/1.0/folders" , {
+    headers: {'Authorization': 'Basic YWRtaW46Q0FkZW1vMTIz', rejectUnauthorized:false, requestCert:true}})
+    .success(function(response) {$scope.names = response;});
+	
+}
+</script>
+<body>
+</body>
+</html>
