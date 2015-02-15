@@ -1,6 +1,6 @@
 // ==UserScript==
 // @id		     SFDCcheckBoxes
-// @name         SFDC add_delete checkBoxes
+// @name         SFDC add delete checkBoxes
 // @namespace    http://your.homepage/
 // @version      0.4
 // @description  This script adds check Boxes to the Salesforces "unresolved items" line items. With the "Del" Button the entries are directly deleted.
