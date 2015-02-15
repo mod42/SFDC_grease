@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         SFDC_delete
 // @namespace    http://your.homepage/
-// @version      0.1
-// @description  enter something useful
+// @version      0.3
+// @description  This script adds a delete Button to the Salesforces "unresolved items" page. With the "Del" Button the entry is directly deleted.
 // @author       You
 // @match        https://*.salesforce.com/*
 // @grant        none
